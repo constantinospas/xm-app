@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'welcome',
     loadChildren: () => import('./modules/welcome/welcome.module').then(
       m => m.WelcomeModule),
-  }]
+  },
+  { path: '', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) }]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
