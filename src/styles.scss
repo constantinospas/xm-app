@@ -2,11 +2,20 @@
 
 html, body {
   height: 100vh;
-  background-color: #7C7C7C;
+  background-color: #264653;
   overflow: hidden;
+  color: whitesmoke;
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-form-field-label {
+  color: whitesmoke !important;
+}
+
+.mat-form-field-underline {
+  background-color: whitesmoke !important;
 }

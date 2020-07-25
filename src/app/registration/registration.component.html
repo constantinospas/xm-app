@@ -1,3 +1,17 @@
 <div class="registration-container">
-
+  <h1>Sign up</h1>
+  <form [formGroup]="formGroup" novalidate autocomplete="off" *ngIf="this.formGroup">
+    <div class="form-field-container" *ngFor="let field of fields">
+      <mat-form-field>
+        <input matInput type="{{field.type}}" name="{{field.name}}"
+               placeholder="{{field.label}}" formControlName="{{field.name}}">
+        <mat-error *ngIf="!formGroup.controls[field.name].valid && formGroup.controls[field.name].touched">
+          {{formGroup.get(field.name).hasError('pattern') ? getError(field, 'regex') :
+          formGroup.get(field.name).hasError('minlength') ? getError(field, 'minlength') :
+            formGroup.get(field.name).hasError('maxlength') ? getError(field, 'maxlength') : ''}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <button class="btn-sign-up" mat-button type="submit" (click)="signUp(formGroup)">Sign up</button>
+  </form>
 </div>
