@@ -11,6 +11,7 @@ import { Router } from '@angular/router'
 })
 export class RegistrationComponent implements OnInit {
   public fields
+  public visibility = false
   public formGroup: FormGroup
 
   constructor (private apiService: ApiService, private router: Router) { }
@@ -61,7 +62,18 @@ export class RegistrationComponent implements OnInit {
           console.error(error)
         },
       )
+  }
 
+  public toggleVisibility (ev) {
+    ev.stopPropagation()
+    const passwordElement: HTMLInputElement = document.querySelector(
+      'input[name="password"]')
+    this.visibility = !this.visibility
+    if (this.visibility) {
+      passwordElement.type = 'text'
+    } else {
+      passwordElement.type = 'password'
+    }
   }
 
   private _makeValidation (rules) {

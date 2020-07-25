@@ -3,8 +3,14 @@
   <form [formGroup]="formGroup" novalidate autocomplete="off" *ngIf="this.formGroup">
     <div class="form-field-container" *ngFor="let field of fields">
       <mat-form-field>
-        <input matInput type="{{field.type}}" name="{{field.name}}"
-               placeholder="{{field.label}}" formControlName="{{field.name}}">
+        <input matInput [type]="field.type" [name]="field.name"
+               [placeholder]="field.label" formControlName="{{field.name}}"/>
+        <mat-icon (click)="toggleVisibility($event)" class="pwd-icon" *ngIf="field.type === 'password' && !visibility">
+          visibility
+        </mat-icon>
+        <mat-icon (click)="toggleVisibility($event)" class="pwd-icon" *ngIf="field.type === 'password' && visibility">
+          visibility_off
+        </mat-icon>
         <mat-error *ngIf="!formGroup.controls[field.name].valid && formGroup.controls[field.name].touched">
           {{!!formGroup.get(field.name).errors ? getError(field, formGroup.get(field.name).errors) : ''}}
         </mat-error>

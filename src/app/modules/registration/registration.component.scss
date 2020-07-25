@@ -5,10 +5,18 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
 
-.btn-sign-up {
-  width: 100%;
-  color: whitesmoke;
-  background-color: #E76F51;
+  .pwd-icon {
+    position: absolute;
+    top: 7px;
+    right: -35px;
+    user-select: none;
+  }
+
+  .btn-sign-up {
+    width: 100%;
+    color: whitesmoke;
+    background-color: #E76F51;
+  }
+
 }
