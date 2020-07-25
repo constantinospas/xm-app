@@ -82,20 +82,20 @@
     ],
     "semicolon": {
       "options": [
-        "always"
+        "never"
       ]
     },
     "space-before-function-paren": {
       "options": {
-        "anonymous": "never",
+        "anonymous": "always",
         "asyncArrow": "always",
-        "constructor": "never",
-        "method": "never",
-        "named": "never"
+        "constructor": "always",
+        "method": "always",
+        "named": "always"
       }
     },
     "typedef": [
-      true,
+      false,
       "call-signature"
     ],
     "typedef-whitespace": {

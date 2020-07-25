@@ -1,0 +1,22 @@
+:host {
+
+  .header {
+    margin-top: 10px;
+    display: flex;
+
+    .link {
+      margin: 0 20px;
+
+      a {
+        font-size: 24px;
+        color: #EEE5E9;
+
+        &:visited {
+          color: #EEE5E9;
+        }
+
+        text-decoration: none;
+      }
+    }
+  }
+}
