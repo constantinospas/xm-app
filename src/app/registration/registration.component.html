@@ -6,12 +6,13 @@
         <input matInput type="{{field.type}}" name="{{field.name}}"
                placeholder="{{field.label}}" formControlName="{{field.name}}">
         <mat-error *ngIf="!formGroup.controls[field.name].valid && formGroup.controls[field.name].touched">
-          {{formGroup.get(field.name).hasError('pattern') ? getError(field, 'regex') :
-          formGroup.get(field.name).hasError('minlength') ? getError(field, 'minlength') :
-            formGroup.get(field.name).hasError('maxlength') ? getError(field, 'maxlength') : ''}}
+          {{!!formGroup.get(field.name).errors ? getError(field, formGroup.get(field.name).errors) : ''}}
         </mat-error>
       </mat-form-field>
     </div>
-    <button class="btn-sign-up" mat-button type="submit" (click)="signUp(formGroup)">Sign up</button>
+    <button class="btn-sign-up" mat-button type="submit" (click)="signUp(formGroup)"
+            disabled="{{!formGroup.valid}}">
+      Sign up
+    </button>
   </form>
 </div>

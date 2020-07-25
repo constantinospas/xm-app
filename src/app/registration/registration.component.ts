@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../services/api.service'
 import { IRegistrationField } from '../interfaces/registration-field.interface'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +13,7 @@ export class RegistrationComponent implements OnInit {
   public fields
   public formGroup: FormGroup
 
-  constructor (private apiService: ApiService) { }
+  constructor (private apiService: ApiService, private router: Router) { }
 
   ngOnInit (): void {
     this.apiService.getForm().
@@ -22,36 +23,41 @@ export class RegistrationComponent implements OnInit {
           fields.forEach(field => {
             formControls[field.name] = new FormControl(null,
               {
-                validators: this._makeValidation(field.validations),
-                updateOn: 'blur',
-              },
-            )
+                validators: this._makeValidation(field),
+              })
+            console.log(formControls[field.name])
           })
           this.formGroup = new FormGroup(formControls)
+          console.log(this.formGroup)
         }
         , error => console.log(error))
   }
 
-  public getError (field, type) {
-    console.log(field, type)
-    switch (type) {
-      case 'regex':
+  public getError (field, errors) {
+    console.log(field, errors)
+    const typeOfError = Object.keys(errors)[0]
+    switch (typeOfError) {
+      case 'pattern':
         return field.validations.find(
-          validation => validation.name === type).message
+          validation => validation.name === 'regex').message
       case 'minlength':
         return field.validations.find(
-          validation => validation.name === type).message
+          validation => validation.name === typeOfError).message
       case 'maxlength':
         return field.validations.find(
-          validation => validation.name === type).message
+          validation => validation.name === typeOfError).message
+      case 'required':
+        return 'This field is required'
     }
   }
 
   public signUp (form) {
     console.log(form)
     this.apiService.postSignUp(form.value).
-      subscribe(res => console.log(res),
-        error => {
+      subscribe(res => {
+          console.log(res)
+          this.router.navigate(['welcome'])
+        }, error => {
           console.error(error)
         },
       )
@@ -63,7 +69,7 @@ export class RegistrationComponent implements OnInit {
     if (rules.required) {
       validation.push(Validators.required)
     }
-    rules.forEach(rule => {
+    rules.validations.forEach(rule => {
       // prone to error if a rule name is unknown, there is probably a better
       // way to do this
       switch (rule.name) {
