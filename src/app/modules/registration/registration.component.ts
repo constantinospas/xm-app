@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { ApiService } from '../services/api.service'
-import { IRegistrationField } from '../interfaces/registration-field.interface'
+import { ApiService } from '../../services/api.service'
+import { IRegistrationField } from '../../interfaces/registration-field.interface'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 
