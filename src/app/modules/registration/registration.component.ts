@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
           fields.forEach(field => {
             formControls[field.name] = new FormControl(null,
               {
-                validators: this._makeValidation(field),
+                validators: this._createValidationRules(field),
               })
             console.log(formControls[field.name])
           })
@@ -37,6 +37,7 @@ export class RegistrationComponent implements OnInit {
   public getError (field, errors) {
     console.log(field, errors)
     const typeOfError = Object.keys(errors)[0]
+    // a bit hacky, can be done better
     switch (typeOfError) {
       case 'pattern':
         return field.validations.find(
@@ -56,12 +57,11 @@ export class RegistrationComponent implements OnInit {
     console.log(form)
     this.apiService.postSignUp(form.value).
       subscribe(res => {
-          console.log(res)
-          this.router.navigate(['welcome'])
-        }, error => {
-          console.error(error)
-        },
-      )
+        console.log(res)
+        this.router.navigate(['welcome'])
+      }, error => {
+        console.error(error)
+      })
   }
 
   public toggleVisibility (ev) {
@@ -76,7 +76,7 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  private _makeValidation (rules) {
+  private _createValidationRules (rules) {
     const validation = []
     if (rules.required) {
       validation.push(Validators.required)
