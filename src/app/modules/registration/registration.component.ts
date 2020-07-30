@@ -69,11 +69,7 @@ export class RegistrationComponent implements OnInit {
     const passwordElement: HTMLInputElement = document.querySelector(
       'input[name="password"]')
     this.visibility = !this.visibility
-    if (this.visibility) {
-      passwordElement.type = 'text'
-    } else {
-      passwordElement.type = 'password'
-    }
+    passwordElement.type = this.visibility ? 'text' : 'password'
   }
 
   private _createValidationRules (rules) {
